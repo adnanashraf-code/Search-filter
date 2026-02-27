@@ -1,31 +1,67 @@
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html,
 body {
-  height: 100%;
-  width: 100%;
-}
-body {
-  background: #000000;
+  min-height: 100vh;
+  background: #000;
+  font-family: "Helvetica Neue", sans-serif;
   display: flex;
   justify-content: center;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1200px;
+  padding: clamp(1rem, 4vw, 2rem);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  font-family: "Helvetica Neue", sans-serif;
+  gap: 2rem;
+}
+
+.yo {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.9rem 1.2rem;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: #111;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.yo::placeholder {
+  color: #666;
+}
+
+.yo:focus {
+  box-shadow: 0 0 0 2px #444;
+}
+
+.me {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
 }
 
 .card {
-    position: relative;
-    width: 200px;
-    height: 300px;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    flex-wrap: wrap;
+  position: relative;
+  aspect-ratio: 2 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
 }
 
 .bg-img {
@@ -35,45 +71,42 @@ body {
   display: block;
 }
 
+/* Proper Blur Layer */
 .blurred-layer {
   position: absolute;
   bottom: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: bottom;
-  filter: blur(10px);
+  height: clamp(80px, 35%, 120px);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(14px);
+
+  background: rgba(0, 0, 0, 0.25);
+
+  /* Smooth fade instead of hard line */
+  mask-image: linear-gradient(to top, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
+
   z-index: 1;
-
-  mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  mask-size: 100% 100%;
-  mask-repeat: no-repeat;
-
-  -webkit-mask-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 1),
-    rgba(0, 0, 0, 0)
-  );
-  -webkit-mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
 }
 
 .content {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  color: white;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  right: 1.2rem;
+  color: #fff;
   z-index: 2;
 }
 
 .content h3 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 6px;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  margin-bottom: 0.4rem;
 }
 
 .content p {
-  font-size: 14px;
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
   color: #ddd;
-  line-height: 1.4;
+  line-height: 1.5;
 }

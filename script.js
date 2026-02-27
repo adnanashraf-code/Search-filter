@@ -1,3 +1,6 @@
+const container = document.querySelector(".me");
+const searchInput = document.querySelector(".yo");
+
 const users = [
   {
     username: "Aarav Sharma",
@@ -50,42 +53,51 @@ const users = [
     bio: "Software engineer building efficient and scalable systems.",
   },
 ];
+
 function showUsers(arr) {
-  arr.forEach(function (users) {
-    // Create main card
+  container.innerHTML = "";
+
+  if (arr.length === 0) {
+    container.innerHTML = "<p style='color:white'>No users found</p>";
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  arr.forEach((user) => {
     const card = document.createElement("div");
-    card.classList.add("card");
+    card.className = "card";
 
-    // Create image
     const img = document.createElement("img");
-    img.src = users.image;
-    img.classList.add("bg-img");
+    img.src = user.image;
+    img.className = "bg-img";
 
-    // Create blurred layer
-    const blurredLayer = document.createElement("div");
-    blurredLayer.style.backgroundImage = `url(${users.image})`;
-    blurredLayer.classList.add("blurred-layer");
+    const blur = document.createElement("div");
+    blur.className = "blurred-layer";
 
-    // Create content container
     const content = document.createElement("div");
-    content.classList.add("content");
+    content.className = "content";
 
-    // Create username
     const title = document.createElement("h3");
-    title.textContent = users.username;
+    title.textContent = user.username;
 
-    // Create bio
     const bio = document.createElement("p");
-    bio.textContent = users.bio;
+    bio.textContent = user.bio;
 
-    // Append elements properly
-    content.appendChild(title);
-    content.appendChild(bio);
-
-    card.appendChild(img);
-    card.appendChild(blurredLayer);
-    card.appendChild(content);
-    document.body.appendChild(card);
+    content.append(title, bio);
+    card.append(img, blur, content);
+    fragment.appendChild(card);
   });
+
+  container.appendChild(fragment);
 }
+
 showUsers(users);
+
+searchInput.addEventListener("input", function () {
+  const value = this.value.toLowerCase();
+  const filtered = users.filter((user) =>
+    user.username.toLowerCase().includes(value),
+  );
+  showUsers(filtered);
+});

@@ -1,138 +1,164 @@
-// const container = document.querySelector(".me");
-// const searchInput = document.querySelector(".yo");
+const container = document.querySelector(".me");
+const searchInput = document.querySelector(".yo");
 
-// const users = [
-//   {
-//     username: "Aarav Sharma",
-//     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-//     bio: "Frontend developer who loves building modern UI with clean design.",
-//   },
-//   {
-//     username: "Isha Verma",
-//     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-//     bio: "UX designer passionate about user-centered digital experiences.",
-//   },
-//   {
-//     username: "Rohan Mehta",
-//     image: "https://randomuser.me/api/portraits/men/65.jpg",
-//     bio: "Full-stack developer exploring scalable web applications.",
-//   },
-//   {
-//     username: "Ananya Kapoor",
-//     image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
-//     bio: "Creative content strategist and social media enthusiast.",
-//   },
-//   {
-//     username: "Kabir Khan",
-//     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
-//     bio: "Backend engineer focused on performance and clean architecture.",
-//   },
-//   {
-//     username: "Meera Joshi",
-//     image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
-//     bio: "Product designer blending creativity with usability.",
-//   },
-//   {
-//     username: "Arjun Patel",
-//     image: "https://images.unsplash.com/photo-1527980965255-d3b416303d12",
-//     bio: "AI enthusiast learning machine learning and data science.",
-//   },
-//   {
-//     username: "Sneha Reddy",
-//     image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
-//     bio: "Marketing specialist with a love for digital branding.",
-//   },
-//   {
-//     username: "Dev Malhotra",
-//     image: "https://images.unsplash.com/photo-1517841905240-472988babdf9",
-//     bio: "Tech blogger sharing knowledge about JavaScript and React.",
-//   },
-//   {
-//     username: "Priya Nair",
-//     image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2",
-//     bio: "Software engineer building efficient and scalable systems.",
-//   },
-// ];
+/* ===========================
+   USERS DATA
+=========================== */
 
-// function showUsers(arr) {
-//   container.innerHTML = "";
+const users = [
+  {
+    username: "Aarav Sharma",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    bio: "Frontend developer who loves building modern UI with clean design.",
+  },
+  {
+    username: "Isha Verma",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    bio: "UX designer passionate about user-centered digital experiences.",
+  },
+  {
+    username: "Rohan Mehta",
+    image: "https://randomuser.me/api/portraits/men/65.jpg",
+    bio: "Full-stack developer exploring scalable web applications.",
+  },
+  {
+    username: "Ananya Kapoor",
+    image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+    bio: "Creative content strategist and social media enthusiast.",
+  },
+  {
+    username: "Kabir Khan",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
+    bio: "Backend engineer focused on performance and clean architecture.",
+  },
+  {
+    username: "Meera Joshi",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+    bio: "Product designer blending creativity with usability.",
+  },
+  {
+    username: "Arjun Patel",
+    image: "https://images.unsplash.com/photo-1527980965255-d3b416303d12",
+    bio: "AI enthusiast learning machine learning and data science.",
+  },
+  {
+    username: "Sneha Reddy",
+    image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+    bio: "Marketing specialist with a love for digital branding.",
+  },
+  {
+    username: "Dev Malhotra",
+    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9",
+    bio: "Tech blogger sharing knowledge about JavaScript and React.",
+  },
+  {
+    username: "Priya Nair",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2",
+    bio: "Software engineer building efficient and scalable systems.",
+  },
+];
 
-//   if (arr.length === 0) {
-//     container.innerHTML = "<p style='color:white'>No users found</p>";
-//     return;
-//   }
+/* ===========================
+   RENDER USERS
+=========================== */
 
-//   const fragment = document.createDocumentFragment();
+function renderUsers(data) {
+  container.innerHTML = "";
 
-//   arr.forEach((user) => {
-//     const card = document.createElement("div");
-//     card.className = "card";
+  if (!data.length) {
+    container.innerHTML = `<p class="no-user">No users found</p>`;
+    return;
+  }
 
-//     const img = document.createElement("img");
-//     img.src = user.image;
-//     img.className = "bg-img";
+  const fragment = document.createDocumentFragment();
 
-//     const blur = document.createElement("div");
-//     blur.className = "blurred-layer";
+  data.forEach(({ username, image, bio }) => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-//     const content = document.createElement("div");
-//     content.className = "content";
+    card.innerHTML = `
+      <img src="${image}" class="bg-img" />
+      <div class="blurred-layer"></div>
+      <div class="content">
+        <h3>${username}</h3>
+        <p>${bio}</p>
+      </div>
+    `;
 
-//     const title = document.createElement("h3");
-//     title.textContent = user.username;
+    fragment.appendChild(card);
+  });
 
-//     const bio = document.createElement("p");
-//     bio.textContent = user.bio;
+  container.appendChild(fragment);
+}
 
-//     content.append(title, bio);
-//     card.append(img, blur, content);
-//     fragment.appendChild(card);
-//   });
+renderUsers(users);
 
-//   container.appendChild(fragment);
-// }
+/* ===========================
+   SEARCH
+=========================== */
 
-// showUsers(users);
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase().trim();
 
-// searchInput.addEventListener("input", function () {
-//   const value = this.value.toLowerCase();
-//   const filtered = users.filter((user) =>
-//     user.username.toLowerCase().includes(value),
-//   );
-//   showUsers(filtered);
-// });
-function createToaster(config) {
-  return function (notification) {
-    // 1. Create div element
+  const filtered = users.filter((user) =>
+    user.username.toLowerCase().includes(value),
+  );
+
+  renderUsers(filtered);
+});
+
+/* ===========================
+   TOASTER SYSTEM
+=========================== */
+
+function createToaster({
+  positionX = "right",
+  positionY = "top",
+  theme = "dark",
+  duration = 3,
+}) {
+  const parent = document.createElement("div");
+  parent.className = `
+    toast-container
+    ${positionX}
+    ${positionY}
+    ${positionY === "bottom" ? "reverse" : ""}
+  `;
+
+  document.body.appendChild(parent);
+
+  return function showToast(message) {
     const toast = document.createElement("div");
+    toast.className = `toast ${theme}`;
+    toast.textContent = message;
 
-    // 2. Add classes
-    toast.className = `fixed  ${config.theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"}  px-6 py-3 rounded-lg shadow-lg pointer-events-none ${config.positionX === "right" ? "right-10" : "left-10"} ${config.positionY === "top" ? "top-10" : "bottom-10"}`;
+    parent.appendChild(toast);
 
-    // 3. Add text
-    toast.textContent = notification;
-
-    // 4. Append to body
-    document.body.appendChild(toast);
-
-    setTimeout(() => {
-      document.body.removeChild(toast);
-    }, config.duration * 1000);
+    requestAnimationFrame(() => {
+      toast.classList.add("show");
+    });
 
     setTimeout(() => {
-      document.body.removeChild(toast);
-    }, config.duration * 1500);
-    setTimeout(() => {
-      document.body.removeChild(toast);
-    }, config.duration * 2000);
+      toast.classList.remove("show");
+      setTimeout(() => toast.remove(), 300);
+    }, duration * 1000);
   };
 }
-let toaster = createToaster({
-  positionX: "right",
+
+/* ===========================
+   INIT TOASTER
+=========================== */
+
+const toaster = createToaster({
+  positionX: "left",
   positionY: "top",
   theme: "dark",
   duration: 3,
 });
-toaster("This is a toaster notification!");
-toaster("Another notification with the same toaster!");
-toaster("Yet another notification with the same toaster!");
+toaster("Search Users Project Loaded");
+setTimeout(() => {
+  toaster("Welcome to the User Search App!");
+}, 2000);
+setTimeout(() => {
+  toaster("Try searching for users using the input above!");
+}, 2500);

@@ -1,3 +1,7 @@
+/* ===========================
+   RESET
+=========================== */
+
 *,
 *::before,
 *::after {
@@ -6,9 +10,28 @@
   box-sizing: border-box;
 }
 
+/* ===========================
+   VARIABLES
+=========================== */
+
+:root {
+  --bg-dark: #000;
+  --input-bg: #111;
+  --text-light: #fff;
+  --text-muted: #ddd;
+  --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.6);
+  --shadow-toast: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --radius: 14px;
+  --transition-fast: 0.3s ease;
+}
+
+/* ===========================
+   BASE LAYOUT
+=========================== */
+
 body {
   min-height: 100vh;
-  background: #000;
+  background: var(--bg-dark);
   font-family: "Helvetica Neue", sans-serif;
   display: flex;
   justify-content: center;
@@ -24,6 +47,10 @@ body {
   gap: 2rem;
 }
 
+/* ===========================
+   SEARCH INPUT
+=========================== */
+
 .yo {
   width: 100%;
   max-width: 400px;
@@ -31,9 +58,10 @@ body {
   border-radius: 10px;
   border: none;
   outline: none;
-  background: #111;
-  color: #fff;
+  background: var(--input-bg);
+  color: var(--text-light);
   font-size: 1rem;
+  transition: box-shadow var(--transition-fast);
 }
 
 .yo::placeholder {
@@ -44,6 +72,10 @@ body {
   box-shadow: 0 0 0 2px #444;
 }
 
+/* ===========================
+   GRID
+=========================== */
+
 .me {
   width: 100%;
   display: grid;
@@ -51,13 +83,18 @@ body {
   gap: clamp(1rem, 3vw, 2rem);
 }
 
+/* ===========================
+   CARD
+=========================== */
+
 .card {
   position: relative;
   aspect-ratio: 2 / 3;
-  border-radius: 14px;
+  border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-  transition: 0.3s ease;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-fast);
+  will-change: transform;
 }
 
 .card:hover {
@@ -71,12 +108,13 @@ body {
   display: block;
 }
 
-/* Proper Blur Layer */
+/* ===========================
+   BLUR OVERLAY
+=========================== */
+
 .blurred-layer {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  inset: auto 0 0 0;
   height: clamp(80px, 35%, 120px);
 
   backdrop-filter: blur(12px);
@@ -84,19 +122,22 @@ body {
 
   background: rgba(0, 0, 0, 0.25);
 
-  /* Smooth fade instead of hard line */
   mask-image: linear-gradient(to top, black 60%, transparent 100%);
   -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
 
   z-index: 1;
 }
 
+/* ===========================
+   CARD CONTENT
+=========================== */
+
 .content {
   position: absolute;
   bottom: 1.2rem;
   left: 1.2rem;
   right: 1.2rem;
-  color: #fff;
+  color: var(--text-light);
   z-index: 2;
 }
 
@@ -107,6 +148,76 @@ body {
 
 .content p {
   font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-  color: #ddd;
+  color: var(--text-muted);
   line-height: 1.5;
+}
+
+/* ===========================
+   NO USER MESSAGE
+=========================== */
+
+.no-user {
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+/* ===========================
+   TOAST SYSTEM
+=========================== */
+
+.toast-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.toast-container.reverse {
+  flex-direction: column-reverse;
+}
+
+.toast-container.left {
+  left: 20px;
+}
+.toast-container.right {
+  right: 20px;
+}
+.toast-container.top {
+  top: 20px;
+}
+.toast-container.bottom {
+  bottom: 20px;
+}
+
+.toast {
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  min-width: 220px;
+
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+
+  box-shadow: var(--shadow-toast);
+  pointer-events: auto;
+}
+
+.toast.dark {
+  background: #1f2937;
+  color: #fff;
+}
+
+.toast.light {
+  background: #f3f4f6;
+  color: #111;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
 }

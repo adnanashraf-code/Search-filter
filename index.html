@@ -4,20 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Responsive User Search</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <!-- <main class="wrapper">
-      <input class="yo" type="text" placeholder="Search users..." />
-      <div class="me"></div> -->
-      <div>
-       class="fixed top-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg  transition-opacity duration-300">
-       This is a toaster notification!
-  </div>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main class="wrapper">
+      <input
+        class="yo"
+        type="text"
+        placeholder="Search users..."
+        aria-label="Search users"
+      />
+
+      <div class="me"></div>
     </main>
 
-    <script src="script.js"></script>
+    <!-- Toast container outside layout -->
+    <div class="parent"></div>
+
+    <!-- JS (defer ensures DOM loads first) -->
+    <script src="script.js" defer></script>
   </body>
 </html>

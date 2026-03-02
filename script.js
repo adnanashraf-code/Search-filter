@@ -211,3 +211,6 @@ setTimeout(() => {
 setTimeout(() => {
   toaster("Try searching for users using the input above!");
 }, 2500);
+setTimeout(() => {
+  toaster("Enjoy exploring the user profiles!");
+}, 3000);

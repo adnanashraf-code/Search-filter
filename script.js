@@ -217,3 +217,7 @@ setTimeout(() => {
 setTimeout(() => {
   toaster("Don't forget to check out the code on GitHub!");
 }, 3200);
+
+setTimeout(() => {
+  toaster("Feel free to customize the search and toaster functionality!");
+}, 3500);
